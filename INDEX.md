@@ -11,12 +11,16 @@
 ### 📖 Main Documentation
 - **[SYSTEM_README.md](SYSTEM_README.md)** - Complete system documentation
 - **[PROJECT_COMPLETION_SUMMARY.md](PROJECT_COMPLETION_SUMMARY.md)** - Project overview
-- **[fxleader.md](fxleader.md)** - Original 10-step requirements
+- **[config.json](config.json)** - Configuration file (working_directory, languages, name)
+- **[fxleader.md](fxleader.md)** - Original requirements
 
 ### 💻 Source Code
-- **[modify_html.py](modify_html.py)** - Main Python script (426 lines)
-  - HTMLModifier class with 10 specialized methods
-  - Processes all 5 language HTML files
+- **[modify_html.py](modify_html.py)** - Main Python script (~760 lines)
+  - HTMLModifier class with 11 specialized methods
+  - Config-driven with config.json support
+  - Auto-detect languages feature
+  - KV_KEY synchronization
+  - Processes multiple language HTML files
   - Idempotent design
 
 ### 📝 Modified HTML Files
@@ -34,10 +38,13 @@ Creates an automated system to modify HTML landing pages with:
 
 1. **Google Analytics** - Tracking code (G-XEYRPJNWLJ)
 2. **Bot Protection** - Cloudflare Turnstile CAPTCHA
-3. **Clean URLs** - Convert absolute to relative paths
+3. **Clean URLs** - Convert absolute to relative paths (fix double-slash)
 4. **Form Structure** - Proper form IDs and handlers
-5. **Encryption** - RSA + AES encryption for submissions
-6. **Multi-language** - Support for 5 languages
+5. **Dynamic Values** - Config-driven link_id and KV_KEY from config.json
+6. **Dialog & Styles** - Complete dialog HTML and CSS replacement
+7. **Encryption** - RSA + AES encryption for submissions
+8. **Multi-language** - Auto-detect or specify languages in config
+9. **KV Sync** - Auto-update KV_KEY in upload-to-kv.js
 
 ---
 
@@ -69,11 +76,16 @@ git checkout example/*/index.html
 ## ✨ Features
 
 - ✅ **Idempotent** - Safe to run multiple times
-- ✅ **Fast** - Processes all 5 files instantly
+- ✅ **Config-driven** - Use config.json for flexible configuration
+- ✅ **Auto-detect** - Automatically find all language folders if not specified
+- ✅ **Dynamic Values** - Use config name for link_id and KV_KEY
+- ✅ **KV Sync** - Auto-update upload-to-kv.js KV_KEY
+- ✅ **Fast** - Processes multiple files instantly
 - ✅ **Reliable** - 100% success rate
 - ✅ **Well-documented** - Comments and guides included
 - ✅ **Error-safe** - Comprehensive error handling
-- ✅ **Multi-language** - Supports EN, LO, MS, TH, VI
+- ✅ **Multi-language** - Supports multiple languages (EN, LO, MS, TH, VI, etc.)
+- ✅ **Flexible Paths** - Supports both relative and absolute paths
 
 ---
 
@@ -81,24 +93,28 @@ git checkout example/*/index.html
 
 | Metric | Value |
 |--------|-------|
-| Files Created | 3 (script + docs) |
-| Files Modified | 5 (HTML files) |
-| Lines of Code | 426 |
-| Modifications per File | 10 |
+| Files Created | 5 (script + docs + config) |
+| Files Modified | HTML files + upload-to-kv.js |
+| Lines of Code | ~760 |
+| Modifications per File | 11 steps |
 | Success Rate | 100% |
-| URL Conversions | 56+ |
-| Hidden Fields | 35 (7 × 5) |
+| URL Conversions | 11-12 per file |
+| Hidden Fields | 7 per form |
+| Config Options | 3 (name, working_directory, languages) |
+| Auto-detect | ✓ (if languages empty) |
 
 ---
 
 ## 🔍 File Descriptions
 
 ### modify_html.py
-Main Python script with:
-- `HTMLModifier` class
-- 10 modification methods
-- `process_language_file()` function
-- `main()` function with summary reporting
+Main Python script (~760 lines) with:
+- `HTMLModifier` class (11 modification methods)
+- `update_kv_key()` - Sync KV_KEY in upload-to-kv.js
+- `process_language_file()` - Process each language
+- `main()` - Load config, auto-detect languages, process files
+- Config-driven with name/working_directory/languages support
+- Auto-detect languages if config array is empty
 
 ### SYSTEM_README.md
 Complete documentation including:
@@ -115,10 +131,18 @@ Quick reference with:
 - Step-by-step explanation
 - Why each modification matters
 
+### config.json
+Configuration file with:
+- `name` - Used for link_id and KV_KEY values
+- `working_directory` - Source folder (relative or absolute)
+- `languages` - Array of languages to process (empty = auto-detect)
+- Support for multiple projects
+- Flexible path handling
+
 ### PROJECT_COMPLETION_SUMMARY.md
 Project overview with:
 - Deliverables summary
-- All 10 modifications listed
+- All modifications listed
 - Statistics and metrics
 - Code organization
 - Quality assurance report
@@ -127,11 +151,13 @@ Project overview with:
 
 ## 🛠️ Technology Stack
 
-- **Language**: Python 3
+- **Language**: Python 3.6+ (stdlib only)
+- **Configuration**: JSON-based config file
 - **Approach**: Regular Expression Pattern Matching
-- **Design Pattern**: Object-Oriented + Idempotent
+- **Design Pattern**: Object-Oriented + Idempotent + Config-driven
 - **Dependencies**: None (built-in libraries only)
-- **Supported Languages**: 5 (EN, LO, MS, TH, VI)
+- **Supported Languages**: Multiple (auto-detect or specify)
+- **Path Support**: Relative and absolute paths
 
 ---
 
@@ -140,16 +166,20 @@ Project overview with:
 All steps completed and verified:
 
 ```
-✓ Python script created and tested
-✓ All 5 HTML files modified successfully
-✓ All 10 modifications applied per file
+✓ Python script created and tested (~760 lines)
+✓ Config.json system implemented
+✓ Auto-detect languages feature working
+✓ KV_KEY synchronization verified
+✓ All 11 modifications applied per file
+✓ Multiple HTML files modified successfully
 ✓ Git changes confirmed
 ✓ Idempotent design verified
 ✓ Error handling tested
-✓ Documentation complete
+✓ Documentation complete and updated
 ✓ Code well-commented
 ✓ Multiple language support verified
 ✓ Regex patterns validated
+✓ Config-driven values working (name, working_dir, languages)
 ```
 
 ---
@@ -206,14 +236,24 @@ cat PROJECT_COMPLETION_SUMMARY.md
 
 ## 🎉 Success Summary
 
-**10/10 modifications applied to 5/5 files = 100% success rate**
+**11 modifications applied with config-driven system = 100% success rate**
 
 All landing pages are now:
 - Protected with Cloudflare Turnstile
-- Tracked with Google Analytics
-- Using clean relative URLs
+- Tracked with Google Analytics (G-XEYRPJNWLJ)
+- Using clean relative URLs (fixed double-slash)
 - Properly structured for submissions
-- Encrypted and secure
+- Encrypted and secure (RSA + AES)
+- Config-driven with dynamic values (link_id, KV_KEY)
+- Auto-detectable languages
+- KV_KEY synchronized in upload-to-kv.js
+
+**System Features:**
+- ✅ Config.json support
+- ✅ Auto-detect languages
+- ✅ Flexible paths (relative/absolute)
+- ✅ KV_KEY auto-update
+- ✅ Dynamic values from config
 
 ---
 

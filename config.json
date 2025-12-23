@@ -1,7 +1,7 @@
 {   
-  "name":"example222",
-  "working_directory": "example",
-  "languages": ["en"],
+  "name":"fastbull-landing",
+  "working_directory": "../fastbull-landing",
+  "languages": [],
   "description": "Configuration file for FISG HTML Modifier System",
   "notes": [
     "working_directory: ชื่อโฟลเดอร์ที่จะแก้ไข (สามารถเป็น relative หรือ absolute path)",

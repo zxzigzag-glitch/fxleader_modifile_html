@@ -747,6 +747,23 @@ def main():
         print(f"✗ Directory not found: {example_dir}")
         return
 
+    # If languages list is empty, auto-detect all language folders
+    if not languages:
+        languages = []
+        if os.path.isdir(example_dir):
+            for item in os.listdir(example_dir):
+                item_path = os.path.join(example_dir, item)
+                # Check if it's a directory and contains index.html
+                if os.path.isdir(item_path) and os.path.exists(os.path.join(item_path, 'index.html')):
+                    languages.append(item)
+            languages.sort()  # Sort for consistent ordering
+        
+        if languages:
+            print(f"✓ Auto-detected languages: {', '.join(languages)}")
+        else:
+            print("⚠ No language folders with index.html found")
+            return
+
     # Update KV_KEY in upload-to-kv.js to match working_directory
     kv_js_path = os.path.join(example_dir, 'upload-to-kv.js')
     update_kv_key(kv_js_path, config_name)
