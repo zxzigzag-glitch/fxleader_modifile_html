@@ -15,7 +15,7 @@ import axios from 'axios';
 
 
 // ===== config =====
-const KV_KEY = 'fastbull';
+const KV_KEY = 'example222';
 const API_TOKEN = 'ed98v51JXGBi4WXPichDqB7swfLeMYEhFT1xtAD4';
 const ACCOUNT_ID = 'b06769c6ffefd86d4cdf94834dc0fc1a';
 const NAMESPACE_ID = 'bf020a62a0c949999abbfbc58d533fcb';

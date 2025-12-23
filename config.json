@@ -1,0 +1,10 @@
+{   
+  "name":"example222",
+  "working_directory": "example",
+  "languages": ["en"],
+  "description": "Configuration file for FISG HTML Modifier System",
+  "notes": [
+    "working_directory: ชื่อโฟลเดอร์ที่จะแก้ไข (สามารถเป็น relative หรือ absolute path)",
+    "languages: รายการภาษาที่ต้องการประมวลผล"
+  ]
+}
